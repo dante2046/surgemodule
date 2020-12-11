@@ -1,0 +1,13 @@
+#!name=115离线及提取至nplayer
+#!desc=115离线及提取至nplayer
+
+[URL Rewrite]
+^http:\/\/115\.com\/\?ct=sign$ http://115.com/lx?taskdg=1 header
+
+[MITM]
+hostname = %INSERT% *.115.com
+
+[Script]
+115nplayer播放 = type=http-request,pattern=^https?:\/\/.*\.115\.com\/.*\.m3u8.*$,script-path=https://raw.githubusercontent.com/ikanam/Surge-Scripts/master/115tonplayer.js,script-update-interval=86400
+115离线 = type=http-response,pattern=^http:\/\/115\.com\/lx.*$,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/ikanam/Surge-Scripts/master/115lx.js,script-update-interval=86400
+115离线 = type=http-response,pattern=^https?:\/\/webapi\.115\.com\/user\/check_sign.*$,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/ikanam/Surge-Scripts/master/115lx.js,script-update-interval=86400
